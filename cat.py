@@ -35,11 +35,11 @@ def update(cycle,check,event_number,x):
     #idle
     if check ==0:
         frame = idle[cycle]
-        cycle ,event_number = gif_work(cycle,idle,event_number,1,7)
+        cycle ,event_number = gif_work(cycle,idle,event_number,0,7)
 #sleep
     elif check == 1:
         frame = sleep[cycle]
-        cycle ,event_number = gif_work(cycle,sleep,event_number,1,7)
+        cycle ,event_number = gif_work(cycle,sleep,event_number,0,7)
     window.geometry('100x100+'+str(x)+'+1050')
     label.configure(image=frame)
     window.after(1,event,cycle,check,event_number,x)
