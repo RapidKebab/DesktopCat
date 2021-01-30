@@ -59,15 +59,15 @@ def update(cycle,check,event_number,x):
 window = tk.Tk()
 #call buddy's action gif
 idle = [tk.PhotoImage(file=impath+'\\idle.gif' ,format = 'gif -index %i' %(i)) for i in range(10)]#idle gif
-#idle_to_sleep = [tk.PhotoImage(file=impath+'idle_to_sleep.gif',format = 'gif -index %i' %(i)) for i in range(8)]#idle to sleep gif
+#idle_to_sleep = [tk.PhotoImage(file=impath+'\\idle_to_sleep.gif',format = 'gif -index %i' %(i)) for i in range(8)]#idle to sleep gif
 sleep = [tk.PhotoImage(file=impath+'\\sleep.gif',format = 'gif -index %i' %(i)) for i in range(7)]#sleep gif
-#sleep_to_idle = [tk.PhotoImage(file=impath+'sleep_to_idle.gif',format = 'gif -index %i' %(i)) for i in range(8)]#sleep to idle gif
+#sleep_to_idle = [tk.PhotoImage(file=impath+'\\sleep_to_idle.gif',format = 'gif -index %i' %(i)) for i in range(8)]#sleep to idle gif
 
 #window configuration
-window.config(highlightbackground='black')
-label = tk.Label(window,bd=0,bg='black')
+window.config(highlightbackground='white')
+label = tk.Label(window,bd=0,bg='white')
 window.overrideredirect(True)
-window.wm_attributes('-transparentcolor','black')
+window.wm_attributes('-transparentcolor','white')
 label.pack()
 #loop the program
 window.after(1,update,cycle,check,event_number,x)
