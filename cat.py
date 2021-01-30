@@ -17,11 +17,12 @@ def event(cycle,check,event_number,x):
         print('idle')
         window.after(400,update,cycle,check,event_number,x) #no. 1,2,3,4 = idle
     else:
-        check  = 2
+        check  = 1
         print('sleep')
         window.after(1000,update,cycle,check,event_number,x)#no. 10,11,12,13,15 = sleep
 #making gif work 
 def gif_work(cycle,frames,event_number,first_num,last_num):
+    print('giffing')
     if cycle < len(frames) -1:
         cycle+=1
     else:
@@ -29,12 +30,14 @@ def gif_work(cycle,frames,event_number,first_num,last_num):
         event_number = random.randrange(first_num,last_num+1,1)
     return cycle,event_number
 def update(cycle,check,event_number,x):
+    print('updating')
+    print(check)
     #idle
     if check ==0:
         frame = idle[cycle]
         cycle ,event_number = gif_work(cycle,idle,event_number,1,7)
 #sleep
-    elif check == 2:
+    elif check == 1:
         frame = sleep[cycle]
         cycle ,event_number = gif_work(cycle,sleep,event_number,1,7)
 
