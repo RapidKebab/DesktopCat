@@ -5,13 +5,13 @@ import os
 x = 1400
 cycle = 0
 check = 1
-idle_num =[1,2,3,4]
+idle_num =[1,2,3,4,5,6,7,8,9]
 sleep_num = [10,11,12,13,15]
 #walk_left = [6,7]
 #walk_right = [8,9]
 event_number = random.randrange(1,3,1)
 impath = os.path.dirname(__file__)
-print(impath)
+print('doing ur mum')
 #transfer random no. to event
 def event(cycle,check,event_number,x):
     if event_number in idle_num:
