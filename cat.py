@@ -40,6 +40,9 @@ def update(cycle,check,event_number,x):
     elif check == 1:
         frame = sleep[cycle]
         cycle ,event_number = gif_work(cycle,sleep,event_number,1,7)
+    window.geometry('100x100+'+str(x)+'+1050')
+    label.configure(image=frame)
+    window.after(1,event,cycle,check,event_number,x)
 
 window = tk.Tk()
 #call buddy's action gif
