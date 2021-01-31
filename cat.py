@@ -1,9 +1,11 @@
 from tkinter.constants import ANCHOR, NW
-import pyautogui
+# import pyautogui
 import random
 import tkinter as tk
 import os
-import sys
+# import sys
+# import time
+
 x = 1400
 cycle = 0
 check = 1
@@ -44,22 +46,27 @@ L = tk.Label(t, text="Right-click to display menu", width=40, height=20)
 m = tk.Menu(t, tearoff=0)
 m.add_command(label="Exit", command=exit)
 frame.bind("<Button-3>", do_popup) 
-
+label = tk.Label(t,borderwidth=0)
+label.pack()
 
 frameCnt = 12
 frames = [tk.PhotoImage(file='./sleeping12.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
 
 def update(ind):
+    selectAndSay(lineProb, numLines)
 
-    frame = frames[ind]
-    ind += 1
-    if ind == frameCnt:
-        ind = 0
-    label.configure(image=frame)
-    t.after(250, update, ind)
+    t.after(0,showSleep2Idle(0))        # the number t.after(*HERE*,showSleep2Idle(0)) needs to be changed to fit the timings of the output
     
-label = tk.Label(t,borderwidth=0)
-label.pack()
+    for x in range(1):
+        t.after(6000,showIdle(0))        # for example, it takes showSleep2Idle 6 seconds to complete its animation          
+
+    t.after(14000,showIdle2Sleep(0))    # the number in the parentheses is the starting frame of the animation (might not be accurate, hell knows why)
+
+    for x in range(1):
+        t.after(20000,showSleep(0))
+
+    t.after(23000, update, ind)
+
 
 frameCntSleep = 12
 framesSleep = [tk.PhotoImage(file='./sleeping12.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
@@ -68,42 +75,63 @@ def showSleep(ind):
     frame = framesSleep[ind]
     ind += 1
     if ind == frameCntSleep:
-        ind = 0
+        return
     label.configure(image=frame)
-    t.after(250, showSleep, ind)
+    t.after(250, showSleep,ind)
 
 frameCntIdle = 32
-framesIdle = [tk.PhotoImage(file='./idle32.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
+framesIdle = [tk.PhotoImage(file='./idle32.gif',format = 'gif -index %i' %(i)) for i in range(32)]
 
 def showIdle(ind):
     frame = framesIdle[ind]
     ind += 1
     if ind == frameCntIdle:
-        ind = 0
+        return
     label.configure(image=frame)
     t.after(250, showIdle, ind)
 
 frameCntI2S = 24
-framesIdle2Sleep = [tk.PhotoImage(file='./transitionIdle2Sleep24.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
+framesIdle2Sleep = [tk.PhotoImage(file='./transitionIdle2Sleep24.gif',format = 'gif -index %i' %(i)) for i in range(24)]
 
 def showIdle2Sleep(ind):
     frame = framesIdle2Sleep[ind]
     ind += 1
     if ind == frameCntI2S:
-        ind = 0
+        return
     label.configure(image=frame)
     t.after(250, showIdle2Sleep, ind)
 
 frameCntS2I = 24
-framesSleep2Idle = [tk.PhotoImage(file='./transitionSleep2Idle24.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
+framesSleep2Idle = [tk.PhotoImage(file='./transitionSleep2Idle24.gif',format = 'gif -index %i' %(i)) for i in range(24)]
 
 def showSleep2Idle(ind):
     frame = framesSleep2Idle[ind]
     ind += 1
     if ind == frameCntS2I:
-        ind = 0
+        return
     label.configure(image=frame)
-    t.after(250, showSleep, ind)
+    t.after(250, showSleep2Idle, ind)
+
+#setup for dialog
+#import random
+lineProb = 4 #one in every 20 idle cycles will display text
+dialoglines = open('dialoglines.txt')
+numLines = 0
+with dialoglines as f:
+    i=0
+    for i, l in enumerate(f):
+        pass
+    numLines = i+1 #well this is technically number-1
+dialoglines.close()
+#print(numLines)
+def selectAndSay(lineProb, numLines):
+    if random.randrange(lineProb) == 0:
+        print('it do be triggered doe')
+        with open('dialoglines.txt') as f:
+            print(f.readlines()[random.randrange(numLines)])
+    else:
+        print('it do Not be triggered lmao')
+
 
 t.after(0, update, 0)
 
