@@ -13,7 +13,6 @@ idle_num =[1,2]
 sleep_num = [3,4,5,6,7]
 event_number = random.randrange(1,7,1)
 impath = os.path.dirname(__file__)
-state = 0
 
 #window configuration
 t = tk.Tk()
@@ -64,21 +63,19 @@ def update(ind):
         if ind == 1:
             print('swappingtoidle')
             swaptoIdle(0)
-            state = 0
         elif ind == 0:
             print('swappingtosleep')
             swaptoSleep(0)
-            state = 1
     else:
         if ind == 1:
             print('sleeping')
             showSleep(0)
-            t.after(frameCntSleep*250, update(1), ind)
+            t.after(frameCntSleep*250, update(1))
         elif ind == 0:
             print('idle')
             selectAndSay(lineProb, numLines)
             showIdle(0)
-            t.after(frameCntIdle*250, update(0), ind)
+            t.after(frameCntIdle*250, update(0))
 
 #    selectAndSay(lineProb, numLines)
 #
@@ -97,15 +94,13 @@ def update(ind):
 def swaptoIdle(ind):
     showSleep2Idle(0)
     t.after(frameCntS2I*250,showIdle(0))
-    state = 0
     selectAndSay(lineProb, numLines)
-    t.after(frameCntIdle*250, update(0),ind)
+    t.after(frameCntIdle*250, update(0))
 
 def swaptoSleep(ind):
     showIdle2Sleep(0)
     t.after(frameCntI2S*250,showSleep(0))
-    state = 1
-    t.after(frameCntSleep*250, update(1), ind)
+    t.after(frameCntSleep*250, update(1))
 
 
 
