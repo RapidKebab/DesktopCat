@@ -114,7 +114,7 @@ def showSleep2Idle(ind):
 
 #setup for dialog
 #import random
-lineProb = 4 #one in every 20 idle cycles will display text
+lineProb = 2 #one in every 20 idle cycles will display text
 dialoglines = open('dialoglines.txt')
 numLines = 0
 with dialoglines as f:
@@ -126,11 +126,11 @@ dialoglines.close()
 #print(numLines)
 def selectAndSay(lineProb, numLines):
     if random.randrange(lineProb) == 0:
-        print('it do be triggered doe')
+        print('')
         with open('dialoglines.txt') as f:
             print(f.readlines()[random.randrange(numLines)])
     else:
-        print('it do Not be triggered lmao')
+        print('')
 
 
 t.after(0, update, 0)
