@@ -58,42 +58,23 @@ frames = [tk.PhotoImage(file='./sleeping12.gif',format = 'gif -index %i' %(i)).s
 time.sleep(5)
 
 def update(ind):
-    print(ind)
     if random.randrange(4) == 0:
         if ind == 0:
-            print('swappingtosleep')
             showIdle2Sleep(0)
             ind = 1
             t.after(frameCntI2S*250, update,ind)
         elif ind == 1:
-            print('swappingtoidle')
             showSleep2Idle(0)
             ind = 0
             t.after(frameCntS2I*250, update,ind)
     else:
         if ind == 1:
-            print('sleeping')
             showSleep(0)
             t.after(frameCntSleep*250, update,ind)
         elif ind == 0:
-            print('idle')
             selectAndSay(lineProb, numLines)
             showIdle(0)
             t.after(frameCntIdle*250, update,ind)
-
-#    selectAndSay(lineProb, numLines)
-#
-#    t.after(0,showSleep2Idle(0))        # the number t.after(*HERE*,showSleep2Idle(0)) needs to be changed to fit the timings of the output
-#    
-#    for x in range(1):
-#        t.after(6000,showIdle(0))        # for example, it takes showSleep2Idle 6 seconds to complete its animation          
-#
-#    t.after(8000,showIdle2Sleep(0))    # the number in the parentheses is the starting frame of the animation (might not be accurate, hell knows why)
-#
-#    for x in range(1):
-#        t.after(14000,showSleep(0))
-#
-#    t.after(12000, update, ind)
 
 def swaptoIdle(ind):
     showSleep2Idle(0)
@@ -175,53 +156,3 @@ def selectAndSay(lineProb, numLines):
 t.after(0, update, 0)
 
 tk.mainloop()
-
-
-# #transfer random no. to event
-# def event(cycle,check,event_number,x):
-#     if event_number in idle_num:
-#         check = 0
-#         print('idle')
-#         window.after(400,update,cycle,check,event_number,x) #no. 1,2,3,4 = idle
-#     else:
-#         check  = 1
-#         print('sleep')
-#         window.after(1000,update,cycle,check,event_number,x)#no. 10,11,12,13,15 = sleep
-# #making gif work 
-# def gif_work(cycle,frames,event_number,first_num,last_num):
-#     print('giffing')
-#     if cycle < len(frames) -1:
-#         cycle+=1
-#     else:
-#         cycle = 0
-#         event_number = random.randrange(first_num,last_num+1,1)
-#     return cycle,event_number
-# def update(cycle,check,event_number,x):
-#     print('updating')
-#     print(check)
-#     #idle
-#     if check ==0:
-#         frame = idle[cycle]
-#         cycle ,event_number = gif_work(cycle,idle,event_number,0,7)
-# #sleep
-#     elif check == 1:
-#         frame = sleep[cycle]
-#         cycle ,event_number = gif_work(cycle,sleep,event_number,0,7)
-#     window.geometry('100x100+'+str(x)+'+1050')
-#     label.configure(image=frame)
-#     window.after(1,event,cycle,check,event_number,x)
-
-# window = tk.Tk()
-# #call buddy's action gif
-# idle = [tk.PhotoImage(file=impath+'\\idle.gif' ,format = 'gif -index %i' %(i)) for i in range(10)]#idle gif
-# sleep = [tk.PhotoImage(file=impath+'\\sleep.gif',format = 'gif -index %i' %(i)) for i in range(7)]#sleep gif
-
-# #window configuration
-# window.config(highlightbackground='white')
-# label = tk.Label(window,bd=0,bg='white')
-# window.overrideredirect(True)
-# window.wm_attributes('-transparentcolor','white')
-# label.pack()
-# #loop the program
-# window.after(1,update,cycle,check,event_number,x)
-# window.mainloop()
