@@ -60,22 +60,26 @@ time.sleep(5)
 def update(ind):
     print(ind)
     if random.randrange(4) == 0:
-        if ind == 1:
-            print('swappingtoidle')
-            swaptoIdle(0)
-        elif ind == 0:
+        if ind == 0:
             print('swappingtosleep')
-            swaptoSleep(0)
+            showIdle2Sleep(0)
+            ind = 1
+            t.after(frameCntI2S*250, update,ind)
+        elif ind == 1:
+            print('swappingtoidle')
+            showSleep2Idle(0)
+            ind = 0
+            t.after(frameCntS2I*250, update,ind)
     else:
         if ind == 1:
             print('sleeping')
             showSleep(0)
-            t.after(frameCntSleep*250, update(1))
+            t.after(frameCntSleep*250, update,ind)
         elif ind == 0:
             print('idle')
             selectAndSay(lineProb, numLines)
             showIdle(0)
-            t.after(frameCntIdle*250, update(0))
+            t.after(frameCntIdle*250, update,ind)
 
 #    selectAndSay(lineProb, numLines)
 #
