@@ -1,3 +1,4 @@
+from tkinter.constants import ANCHOR, NW
 import pyautogui
 import random
 import tkinter as tk
@@ -10,6 +11,23 @@ sleep_num = [3,4,5,6,7]
 event_number = random.randrange(1,7,1)
 impath = os.path.dirname(__file__)
 print('running lol')
+
+
+t = tk.Tk()
+t.title("Transparency")
+frame = tk.Frame(t)
+frame.pack()
+
+canvas = tk.Canvas(frame,width=480,height=480)
+canvas.pack(expand=True, fill="both")
+gif1=tk.PhotoImage(file='./idle.gif')
+canvas.create_image(0,0, image=gif1, anchor = tk.NW )
+
+tk.mainloop()
+
+
+
+
 #transfer random no. to event
 def event(cycle,check,event_number,x):
     if event_number in idle_num:
