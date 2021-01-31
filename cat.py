@@ -13,6 +13,7 @@ idle_num =[1,2]
 sleep_num = [3,4,5,6,7]
 event_number = random.randrange(1,7,1)
 impath = os.path.dirname(__file__)
+state = 0
 
 #window configuration
 t = tk.Tk()
@@ -48,27 +49,57 @@ m.add_command(label="Exit", command=exit)
 frame.bind("<Button-3>", do_popup) 
 label = tk.Label(t,borderwidth=0)
 label.pack()
+frameCntSleep = 12
+frameCntIdle = 32
+frameCntI2S = 24
+frameCntS2I = 24
 
 frameCnt = 12
 frames = [tk.PhotoImage(file='./sleeping12.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
 
 def update(ind):
+    if random.randrange(3) == 0:
+        if state == 1:
+            swaptoIdle(0)
+        if state == 0:
+            swaptoSleep(0)
+    else:
+        if state == 1:
+            showSleep(0)
+            t.after(frameCntSleep*250, update, ind)
+        if state == 0:
+            showIdle(0)
+            t.after(frameCntIdle*250, update, ind)
+
+#    selectAndSay(lineProb, numLines)
+#
+#    t.after(0,showSleep2Idle(0))        # the number t.after(*HERE*,showSleep2Idle(0)) needs to be changed to fit the timings of the output
+#    
+#    for x in range(1):
+#        t.after(6000,showIdle(0))        # for example, it takes showSleep2Idle 6 seconds to complete its animation          
+#
+#    t.after(8000,showIdle2Sleep(0))    # the number in the parentheses is the starting frame of the animation (might not be accurate, hell knows why)
+#
+#    for x in range(1):
+#        t.after(14000,showSleep(0))
+#
+#    t.after(12000, update, ind)
+
+def swaptoIdle(ind):
+    showSleep2Idle(0)
+    t.after(frameCntS2I*250,showIdle(0))
+    state = 'idle'
     selectAndSay(lineProb, numLines)
+    t.after(frameCntIdle*250, update, ind)
 
-    t.after(0,showSleep2Idle(0))        # the number t.after(*HERE*,showSleep2Idle(0)) needs to be changed to fit the timings of the output
-    
-    for x in range(1):
-        t.after(6000,showIdle(0))        # for example, it takes showSleep2Idle 6 seconds to complete its animation          
-
-    t.after(14000,showIdle2Sleep(0))    # the number in the parentheses is the starting frame of the animation (might not be accurate, hell knows why)
-
-    for x in range(1):
-        t.after(20000,showSleep(0))
-
-    t.after(23000, update, ind)
+def swaptoSleep(ind):
+    showIdle2Sleep(0)
+    t.after(frameCntI2S*250,showSleep(0))
+    state = 'sleep'
+    t.after(frameCntSleep*250, update, ind)
 
 
-frameCntSleep = 12
+
 framesSleep = [tk.PhotoImage(file='./sleeping12.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
 
 def showSleep(ind):
@@ -79,7 +110,7 @@ def showSleep(ind):
     label.configure(image=frame)
     t.after(250, showSleep,ind)
 
-frameCntIdle = 32
+
 framesIdle = [tk.PhotoImage(file='./idle32.gif',format = 'gif -index %i' %(i)) for i in range(32)]
 
 def showIdle(ind):
@@ -90,7 +121,7 @@ def showIdle(ind):
     label.configure(image=frame)
     t.after(250, showIdle, ind)
 
-frameCntI2S = 24
+
 framesIdle2Sleep = [tk.PhotoImage(file='./transitionIdle2Sleep24.gif',format = 'gif -index %i' %(i)) for i in range(24)]
 
 def showIdle2Sleep(ind):
@@ -101,7 +132,7 @@ def showIdle2Sleep(ind):
     label.configure(image=frame)
     t.after(250, showIdle2Sleep, ind)
 
-frameCntS2I = 24
+
 framesSleep2Idle = [tk.PhotoImage(file='./transitionSleep2Idle24.gif',format = 'gif -index %i' %(i)) for i in range(24)]
 
 def showSleep2Idle(ind):
@@ -114,7 +145,7 @@ def showSleep2Idle(ind):
 
 #setup for dialog
 #import random
-lineProb = 4 #one in every 20 idle cycles will display text
+lineProb = 2 #one in every 20 idle cycles will display text
 dialoglines = open('dialoglines.txt')
 numLines = 0
 with dialoglines as f:
@@ -126,11 +157,11 @@ dialoglines.close()
 #print(numLines)
 def selectAndSay(lineProb, numLines):
     if random.randrange(lineProb) == 0:
-        print('it do be triggered doe')
+        print('')
         with open('dialoglines.txt') as f:
             print(f.readlines()[random.randrange(numLines)])
     else:
-        print('it do Not be triggered lmao')
+        print('')
 
 
 t.after(0, update, 0)
