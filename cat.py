@@ -58,22 +58,26 @@ frameCnt = 12
 frames = [tk.PhotoImage(file='./sleeping12.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
 
 def update(ind):
-    if random.randrange(3) == 0:
-        if state == 1:
+    print(ind)
+    if random.randrange(4) == 0:
+        if ind == 1:
             print('swappingtoidle')
             swaptoIdle(0)
-        if state == 0:
+            state = 0
+        elif ind == 0:
             print('swappingtosleep')
             swaptoSleep(0)
+            state = 1
     else:
-        if state == 1:
+        if ind == 1:
             print('sleeping')
             showSleep(0)
-            t.after(frameCntSleep*250, update, ind)
-        if state == 0:
+            t.after(frameCntSleep*250, update(1), ind)
+        elif ind == 0:
             print('idle')
+            selectAndSay(lineProb, numLines)
             showIdle(0)
-            t.after(frameCntIdle*250, update, ind)
+            t.after(frameCntIdle*250, update(0), ind)
 
 #    selectAndSay(lineProb, numLines)
 #
@@ -94,13 +98,13 @@ def swaptoIdle(ind):
     t.after(frameCntS2I*250,showIdle(0))
     state = 0
     selectAndSay(lineProb, numLines)
-    t.after(frameCntIdle*250, update, ind)
+    t.after(frameCntIdle*250, update(0),ind)
 
 def swaptoSleep(ind):
     showIdle2Sleep(0)
     t.after(frameCntI2S*250,showSleep(0))
     state = 1
-    t.after(frameCntSleep*250, update, ind)
+    t.after(frameCntSleep*250, update(1), ind)
 
 
 
