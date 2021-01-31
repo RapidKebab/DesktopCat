@@ -3,8 +3,8 @@ from tkinter.constants import ANCHOR, NW
 import random
 import tkinter as tk
 import os
-# import sys
-# import time
+import sys
+import time
 
 x = 1400
 cycle = 0
@@ -56,6 +56,7 @@ frameCntS2I = 24
 
 frameCnt = 12
 frames = [tk.PhotoImage(file='./sleeping12.gif',format = 'gif -index %i' %(i)).subsample(2,2) for i in range(12)]
+time.sleep(5)
 
 def update(ind):
     print(ind)
