@@ -21,7 +21,7 @@ frame = tk.Frame(t, highlightthickness=-2,borderwidth=-2)
 frame.pack()
 t.overrideredirect(True)
 screen_width = t.winfo_screenwidth()-240
-screen_height = t.winfo_screenheight()-32-240
+screen_height = t.winfo_screenheight()-46-240
 screen_resolution = '+'+str(screen_width)+'+'+str(screen_height)
 t.geometry(screen_resolution)
 t.wm_attributes("-transparentcolor", "red",'-topmost', True)
@@ -35,7 +35,7 @@ def do_popup(event):
         m.grab_release()
 
 label1_text=tk.StringVar()
-label1_text.set("Mishookoo")
+label1_text.set("Mishookoo\n ~your personal desk cat~")
 label1=tk.Label(t, textvariable=label1_text)
 label1.pack()
 # attach popup to frame
@@ -148,7 +148,7 @@ def selectAndSay(lineProb, numLines):
     if random.randrange(lineProb) == 0:
         print('')
         with open('dialoglines.txt') as f:
-            print(f.readlines()[random.randrange(numLines)])
+            label1_text.set(f.readlines()[random.randrange(numLines)])
     else:
         print('')
 
